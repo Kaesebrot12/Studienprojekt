@@ -1,0 +1,64 @@
+\usepackage[a4paper, top=2.5cm, bottom=3cm, left=2.5cm, right=3cm]{geometry}
+\usepackage{times}
+\usepackage{setspace}
+\usepackage{scalefnt}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{placeins} 
+\usepackage{lipsum}
+\usepackage[ngerman]{babel}
+\usepackage[german]{datetime2}
+
+
+\pagestyle{fancy}
+\fancyhead{} % Löscht die aktuelle Kopfzeile
+\fancyfoot{} % Löscht die aktuelle Fußzeile
+\setcounter{secnumdepth}{0}
+\pagenumbering{gobble}
+\makeatletter
+\newcommand{\seminar}[1]{\def\@seminar{#1}}
+\newcommand{\fakultaet}[1]{\def\@fakultaet{#1}}
+\newcommand{\dozent}[1]{\def\@dozent{#1}}
+\newcommand{\semester}[1]{\def\@semester{#1}}
+\renewcommand{\headrulewidth}{0pt} 
+\renewcommand{\contentsname}{Inhaltsverzeichnis} 
+\renewcommand{\maketitle}{%
+  \begin{center}
+    \fancyhead[L]{\@date} 
+    \begin{figure}[h]
+      \begin{minipage}{\textwidth}
+        \centering
+        \includegraphics[width=0.5\linewidth]{Preamble/Bilder/Pott.png} 
+      \end{minipage}
+    \end{figure}
+    {\scalefont{3}\@title \par}%
+    \vskip 1em%
+    {\Large \@seminar \par \@dozent \par}%
+    \vskip 5em%
+    \begin{minipage}[t]{0.3\textwidth}
+        \large \@author
+    \end{minipage}%
+    \hspace{1.5cm}
+    \begin{minipage}[t]{0.4\textwidth}
+        \large \@fakultaet
+    \end{minipage}  
+  \end{center}
+  \par
+  \vskip 1.5em
+  \vspace{1cm}
+  
+  \newpage
+  \pagenumbering{arabic}
+  \renewcommand{\headrulewidth}{0.4pt} 
+  \renewcommand{\footrulewidth}{0.4pt} 
+  \setlength{\headheight}{15pt}
+  \fancyhead[L]{\@date}
+  \fancyfoot[L]{\@title} % Fügt eine neue Fußzeile in der Mitte 
+  \fancyfoot[C]{\nouppercase{\leftmark}}
+  \fancyfoot[R]{\thepage}
+  \tableofcontents
+  \newpage
+  }
+ 
+\makeatother
+
