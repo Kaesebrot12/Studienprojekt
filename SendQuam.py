@@ -4,29 +4,11 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import numpy as np
 import sounddevice as sd
 import threading
+from mod_Quam import qam_modulate
 
 # Set the sample rate and buffer size
 sample_rate = 44100
 buffer_size = 1024
-
-# Funktion zur QAM-Modulation
-def qam_modulate(data, carrier_freq, sample_rate):
-    # Convert data to bits
-    bits = ''.join(format(ord(i), '08b') for i in data)
-
-    # Group bits into symbols
-    n = 4  # 4 bits per symbol for 16-QAM
-    symbols = [bits[i:i+n] for i in range(0, len(bits), n)]
-
-    # Convert symbols to complex numbers
-    constellation = np.array([-3-3j, -3-1j, -3+3j, -3+1j, -1-3j, -1-1j, -1+3j, -1+1j, 3-3j, 3-1j, 3+3j, 3+1j, 1-3j, 1-1j, 1+3j, 1+1j])
-    points = [constellation[int(symbol, 2)] for symbol in symbols]
-
-    # Modulate the signal
-    t = np.arange(0, len(points) / carrier_freq, 1 / sample_rate)
-    signal = np.concatenate([np.real(point) * np.cos(2 * np.pi * carrier_freq * t[i:i+int(sample_rate/carrier_freq)]) - np.imag(point) * np.sin(2 * np.pi * carrier_freq * t[i:i+int(sample_rate/carrier_freq)]) for i, point in enumerate(points)])
-
-    return signal
 
 # Funktion zum Visualisieren des Tons im Frequenzbereich
 def plot_sound(signal):
@@ -36,7 +18,7 @@ def plot_sound(signal):
     ax.plot(freq, spectrum)
     ax.set_xlabel('Frequency (Hz)')
     ax.set_ylabel('Magnitude')
-    ax.set_xlim([0, 9000])
+    ax.set_xlim([0, 5000])
     canvas.draw()
 
 # Funktion zum Abspielen und Visualisieren eines Tons
