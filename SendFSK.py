@@ -26,7 +26,7 @@ def plot_sound(frequency):
     ax.plot(freq, spectrum)
     ax.set_xlabel('Frequency (Hz)')
     ax.set_ylabel('Magnitude')
-    ax.set_xlim([0, 1300])
+    ax.set_xlim([0, 1600])
     canvas.draw()
 
 # Funktion zum Abspielen und Visualisieren eines Tons
@@ -57,7 +57,7 @@ canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=1)
 def process_text():
     text = text_input.get()
     global frequencies
-    frequencies = [ord(char) * 10 for char in text]
+    frequencies = [300 + ord(char) * 10 for char in text]
     threading.Thread(target=play_and_visualize).start()
 
 # Create a button to process the text
